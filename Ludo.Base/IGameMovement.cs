@@ -8,12 +8,12 @@ namespace Ludo.Base
 {
     public interface IGameMovement
     {
-        bool IsPiecePlaced(IGameField field);
+        bool IsPiecePlaced(Field field);
 
-        void MovePiece(ref List<IGameField> fields, int pieceTurn, int dieRoll);
+        void MovePiece(ref List<Field> fields, int pieceTurn, int dieRoll);
 
-        void RemovePiece(ref IGameField field);
+        void RemovePiece(ref Field field);
 
-        void KillPiece(ref IGamePiece piece);
+        void KillPiece(ref Piece piece);
     }
 }

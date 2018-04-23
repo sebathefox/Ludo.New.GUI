@@ -31,7 +31,7 @@ namespace Ludo.GUI
 
 
         // Sets the playernames so that the players can be instanciated
-        private void DoneButtonClick(object sender, RoutedEventArgs e)
+        private void DoneButton_Click(object sender, RoutedEventArgs e)
         {
             PlayerInput.Visibility = System.Windows.Visibility.Collapsed;
 
@@ -54,25 +54,45 @@ namespace Ludo.GUI
                     Players.Items.Add(data);
             });
 
+
+            // Debug output
             foreach (string pn in playerNames)
             {
                 Debug.WriteLine("Name: " + pn);
                 
             }
 
+            DrawBoard();
         }
 
-        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        // Exit button has been clicked
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             PlayerInput.Visibility = System.Windows.Visibility.Collapsed;
 
             Environment.Exit(0); // Exits the program with no errors
         }
 
+        private void Piece_OnMove(IGamePiece piece, int oldField, int newField)
+        {
+
+        }
+
         private void DrawBoard()
         {
 
-
+            for (int i = 1; i <= 52; i++)
+            {
+                if (i == 1)
+                    fields.Add(new Fields.White(i));
+                else if (i == 2)
+                    fields.Add(new Fields.Start(i));
+                else if (i <= 6)
+                    fields.Add(new Fields.White(i));
+                // GO UP!!
+                else if (i <= 12)
+                    fields.Add(new Fields.White(i));
+            }
 
 
             // Adds the fields to the board

@@ -4,10 +4,10 @@
              xmlns:local="clr-namespace:Ludo.GUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <BitmapImage x:Key="WhiteField" UriSource="./graphics/"/>
-        <BitmapImage x:Key="RedField" UriSource="./graphics/redField.png"/>
+        <ImageBrush x:Key="WhiteField" ImageSource="./graphics/diceTwo.png"/>
+        <ImageBrush x:Key="RedField" ImageSource="./graphics/redField.png"/>
         <ImageBrush x:Key="BlueField"  ImageSource="./graphics/blueField.png"/>
-        <BitmapImage x:Key="GreenField" UriSource="./graphics/greenField.png"/>
-        <BitmapImage x:Key="YellowField" UriSource="./graphics/yellowField.png"/>
+        <ImageBrush x:Key="GreenField" ImageSource="./graphics/greenField.png"/>
+        <ImageBrush x:Key="YellowField" ImageSource="./graphics/yellowField.png"/>
     </Application.Resources>
 </Application>

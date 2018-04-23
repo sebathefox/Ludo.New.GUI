@@ -52,6 +52,7 @@
     <Compile Include="IGameField.cs" />
     <Compile Include="IGameMovement.cs" />
     <Compile Include="IGamePiece.cs" />
+    <Compile Include="IImage.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

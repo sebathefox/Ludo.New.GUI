@@ -8,13 +8,24 @@ namespace Ludo.Base
 {
     public enum PieceState { Home, InPlay, Safe, Finished }
 
-    public interface IGamePiece : IGameColor
+    public delegate void PieceMovedHandler(IGamePiece piece, int previousField, int newField);
+
+    public interface IGamePiece
     {
         int Id { get; }
-        int Position { get; set; }
-        int HomePosition { get; }
-        int Counter { get; set; }
+
+        GameColor Color { get; }
 
         PieceState State { get; set; }
+
+        int Position { get; set; }
+
+        int HomePosition { get; }
+
+        int Counter { get; set; }
+
+        bool CanMove { get; set; }
+
+        event PieceMovedHandler OnMove;
     }
 }

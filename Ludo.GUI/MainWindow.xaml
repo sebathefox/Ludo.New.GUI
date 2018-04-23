@@ -35,8 +35,8 @@
                         <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player3Input"/>
                         <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player4Input"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="DoneButton" Margin="5" Content="Done" Background="{x:Null}" Click="DoneButtonClick"/>
-                            <Button x:Name="CancelButton" Margin="5" Content="Cancel" Background="{StaticResource ResourceKey=BlueField}" Click="CancelButtonClick"/>
+                            <Button x:Name="DoneButton" Margin="5" Content="Done" Background="{x:Null}" Click="DoneButton_Click"/>
+                            <Button x:Name="CancelButton" Margin="5" Content="Cancel" Background="{StaticResource ResourceKey=BlueField}" Click="CancelButton_Click"/>
                         </StackPanel>
                     </StackPanel>
             </Border>

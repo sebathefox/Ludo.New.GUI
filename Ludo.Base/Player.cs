@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ludo.Base
 {
-    class Player
+    public class Player
     {
         private readonly Piece[] pieces; //A array with the tokens the player uses in the game
 
@@ -40,12 +40,12 @@ namespace Ludo.Base
         /// <summary>
         /// Gets the array with the players tokens
         /// </summary>
-        public Piece[] GetTokens() => this.pieces;
+        public Piece[] GetPieces() => this.pieces;
 
         /// <summary>
         /// Gets a single array from the token array
         /// </summary>
-        public Piece GetPiece(int tknid) => this.pieces[tknid];
+        public Piece GetPiece(int pieceId) => this.pieces[pieceId];
 
         #endregion
     }

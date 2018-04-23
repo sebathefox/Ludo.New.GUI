@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ludo.Base
 {
-    public enum FieldType { BaseField, SafeField, StartField, GlobeField, StarField}
+    
     public interface IGameField : IGameColor
     {
         bool IsEnemyPiece(); // Are there any enemy pieces?
