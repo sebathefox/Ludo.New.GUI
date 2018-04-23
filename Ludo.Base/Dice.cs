@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ludo.New
+namespace Ludo.Base
 {
-    class Program
+    class Dice
     {
-        static void Main(string[] args)
-        {
-            Game game = new Game();
-        }
     }
 }

@@ -1,0 +1,45 @@
+﻿<Window x:Class="Ludo.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ludo.GUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="800">
+    <Grid>
+
+        <!-- Used to see the current players -->
+        <Grid HorizontalAlignment="Right" MinWidth="100">
+            <ListView x:Name="Players" VerticalAlignment="Top"/>
+        </Grid>
+
+        <Canvas x:Name="GameBoard">
+            
+        </Canvas>
+        
+        <!-- Needs to me in the bottom -->
+        <Grid x:Name="PlayerInput" Visibility="Visible">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border
+                MinWidth="250"
+                Background="Orange"
+                BorderBrush="Black"
+                BorderThickness="1"
+                CornerRadius="55, 55, 55, 55"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Margin="5" Width="150" Text="LUDO THE GAME!!!" FontWeight="Bold" FontFamily="Cambria"/>
+                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player1Input"/>
+                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player2Input"/>
+                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player3Input"/>
+                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player4Input"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="DoneButton" Margin="5" Content="Done" Background="{x:Null}" Click="DoneButtonClick"/>
+                            <Button x:Name="CancelButton" Margin="5" Content="Cancel" Background="{StaticResource ResourceKey=BlueField}" Click="CancelButtonClick"/>
+                        </StackPanel>
+                    </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

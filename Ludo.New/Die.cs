@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ludo.New
 {
-    class Program
+    class Die
     {
-        static void Main(string[] args)
-        {
-            Game game = new Game();
-        }
     }
 }
