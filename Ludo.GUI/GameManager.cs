@@ -147,14 +147,14 @@ namespace Ludo.GUI
 
         private void GenerateFields()
         {
-            for(int i = 1; i <= 51; i++)
+            for(int i = 1; i <= 52; i++)
             {
                 if (i == 1)
-                    fields.Add(new Fields.White(i, 32 * i, 250));
+                    fields.Add(new Fields.White(i, 2 + 32 * i, 250));
                 else if (i == 2)
-                    fields.Add(new Fields.Start(i, 32 * i, 250));
+                    fields.Add(new Fields.Start(i, 2 + 32 * i, 250));
                 else if (i <= 6)
-                    fields.Add(new Fields.White(i, 32 * i, 250));
+                    fields.Add(new Fields.White(i, 2 + 32 * i, 250));
                 // GO UP!
                 else if (i <= 12)
                     fields.Add(new Fields.White(i, 226, 250 - 32 * (i - 6)));
@@ -176,6 +176,18 @@ namespace Ludo.GUI
                 // GO DOWN!
                 else if (i <= 38)
                     fields.Add(new Fields.White(i, 290, 314 + 32 * (i - 32)));
+                // GO LEFT!
+                else if (i <= 40)
+                    fields.Add(new Fields.White(i, 290 - 32 * (i - 38), 506));
+                // GO UP!
+                else if (i <= 45)
+                    fields.Add(new Fields.White(i, 226, 506 - 32 * (i - 40)));
+                // GO LEFT!
+                else if (i <= 51)
+                    fields.Add(new Fields.White(i, 226 - 32 * (i - 45), 314));
+                // GO UP!
+                else
+                    fields.Add(new Fields.White(i, 34, 282));
             }
         }
 

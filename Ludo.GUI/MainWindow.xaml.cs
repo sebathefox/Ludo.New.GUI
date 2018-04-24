@@ -76,7 +76,7 @@ namespace Ludo.GUI
 
         private void Piece_OnMove(IGamePiece piece, int oldField, int newField)
         {
-
+            // TODO Move event to GameManager
         }
     }
 }
