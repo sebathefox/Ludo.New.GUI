@@ -8,5 +8,18 @@ namespace Ludo.Base
 {
     class Dice
     {
+        public Dice()
+        {
+            this.Value = new Random().Next(1, 7);
+        }
+
+        public int Throw()
+        {
+            return this.Value = new Random().Next(1, 7);
+        }
+
+        public int Value { get; private set; }
+
+        // TODO Implement imagestuffish...
     }
 }

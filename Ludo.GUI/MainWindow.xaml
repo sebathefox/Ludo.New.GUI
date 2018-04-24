@@ -13,10 +13,8 @@
             <ListView x:Name="Players" VerticalAlignment="Top"/>
         </Grid>
 
-        <Canvas x:Name="GameBoard">
-            
-        </Canvas>
-        
+        <Canvas x:Name="GameBoard"/>
+
         <!-- Needs to me in the bottom -->
         <Grid x:Name="PlayerInput" Visibility="Visible">
             <Grid Background="Black" Opacity="0.5"/>
@@ -28,17 +26,17 @@
                 CornerRadius="55, 55, 55, 55"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-                    <StackPanel>
-                        <TextBlock Margin="5" Width="150" Text="LUDO THE GAME!!!" FontWeight="Bold" FontFamily="Cambria"/>
-                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player1Input"/>
-                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player2Input"/>
-                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player3Input"/>
-                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player4Input"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="DoneButton" Margin="5" Content="Done" Background="{x:Null}" Click="DoneButton_Click"/>
-                            <Button x:Name="CancelButton" Margin="5" Content="Cancel" Background="{StaticResource ResourceKey=BlueField}" Click="CancelButton_Click"/>
-                        </StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="5" Width="150" Text="LUDO THE GAME!!!" FontWeight="Bold" FontFamily="Cambria"/>
+                    <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player1Input"/>
+                    <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player2Input"/>
+                    <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player3Input"/>
+                    <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" x:Name="Player4Input"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="DoneButton" Margin="5" Content="Done" Background="{x:Null}" Click="DoneButton_Click"/>
+                        <Button x:Name="CancelButton" Margin="5" Content="Cancel" Background="{x:Null}" Click="CancelButton_Click"/>
                     </StackPanel>
+                </StackPanel>
             </Border>
         </Grid>
     </Grid>

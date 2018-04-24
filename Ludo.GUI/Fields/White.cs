@@ -10,10 +10,10 @@ namespace Ludo.GUI.Fields
 {
     class White : Field
     {
-        public White(int id) : base(id)
+        public White(int id, int posX, int posY) : base(id, posX, posY)
         {
             this.Type = FieldType.BaseField;
-            this.Image = (ImageBrush) FindResource("WhiteField");
+            this.Background = (ImageBrush) FindResource("WhiteField");
         }
 
 

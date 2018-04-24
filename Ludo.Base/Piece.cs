@@ -9,6 +9,7 @@ namespace Ludo.Base
 {
     public class Piece : IGamePiece
     {
+        public event PieceMovedHandler OnMove;
         public Piece(int id, GameColor color, int startPos)
         {
             this.Id = id;
@@ -17,8 +18,6 @@ namespace Ludo.Base
             this.HomePosition = this.Position = startPos;
             this.CanMove = false;
         }
-
-        public event PieceMovedHandler OnMove;
 
         public void MovePiece(ref List<Field> fields, int dieValue)
         {

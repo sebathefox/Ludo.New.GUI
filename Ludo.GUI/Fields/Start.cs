@@ -10,10 +10,12 @@ namespace Ludo.GUI.Fields
 {
     class Start : Field
     {
-        public Start(int id) : base(id)
+        public Start(int id, int posX, int posY) : base(id, posX, posY)
         {
             this.Type = FieldType.BaseField;
-            this.Image = (ImageBrush)FindResource("WhiteField");
+            this.Background = (ImageBrush)FindResource("WhiteField");
         }
+
+        //TODO Make this class the startfield for the pieces
     }
 }

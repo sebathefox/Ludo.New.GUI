@@ -23,6 +23,7 @@ namespace Ludo.GUI
     public partial class MainWindow : Window
     {
         private List<Field> fields = new List<Field>();
+        private GameManager manager = new GameManager();
 
         public MainWindow()
         {
@@ -62,7 +63,7 @@ namespace Ludo.GUI
                 
             }
 
-            DrawBoard();
+            manager.DrawBoard(GameBoard);
         }
 
         // Exit button has been clicked
@@ -76,30 +77,6 @@ namespace Ludo.GUI
         private void Piece_OnMove(IGamePiece piece, int oldField, int newField)
         {
 
-        }
-
-        private void DrawBoard()
-        {
-
-            for (int i = 1; i <= 52; i++)
-            {
-                if (i == 1)
-                    fields.Add(new Fields.White(i));
-                else if (i == 2)
-                    fields.Add(new Fields.Start(i));
-                else if (i <= 6)
-                    fields.Add(new Fields.White(i));
-                // GO UP!!
-                else if (i <= 12)
-                    fields.Add(new Fields.White(i));
-            }
-
-
-            // Adds the fields to the board
-            fields.ForEach((Field field) =>
-            {
-                GameBoard.Children.Add(field);
-            });
         }
     }
 }

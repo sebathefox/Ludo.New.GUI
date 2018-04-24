@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ludo.Base
 {
+    public enum GameColor { Red, Blue, Green, Yellow, White }
     class Game
     {
 

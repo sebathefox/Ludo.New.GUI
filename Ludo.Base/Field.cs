@@ -9,17 +9,19 @@ using System.Windows.Media;
 
 namespace Ludo.Base
 {
-    public enum FieldType { BaseField, SafeField, StartField, GlobeField, StarField }
+    public enum FieldType { BaseField, SafeField, StartField, GlobeField, StarField, HomeField }
 
-    public abstract class Field : Button, IImage
+    public abstract class Field : Button
     {
-        List<IGamePiece> pieces;
+        private List<IGamePiece> pieces;
 
-        protected Field(int id)
+        protected Field(int id, int posX, int posY)
         {
-            this.Id = Id;
+            this.Id = id;
             this.Width = 32;
             this.Height = 32;
+            this.PosX = posX;
+            this.PosY = posY;
         }
 
         public virtual bool IsEnemyPiece()
@@ -42,9 +44,7 @@ namespace Ludo.Base
 
         protected virtual GameColor Color { get; set; }
 
-        public ImageBrush Image { get; set; }
-
-        public int PosX { get; protected set; }
-        public int PosY { get; protected set; }
+        public virtual int PosX { get; set; }
+        public virtual int PosY { get; set; }
     }
 }

@@ -62,6 +62,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Fields\Home.cs" />
     <Compile Include="Fields\Start.cs" />
     <Compile Include="Fields\White.cs" />
     <Compile Include="GameManager.cs" />
@@ -121,6 +122,9 @@
       <Project>{87574F4E-235F-4B11-B404-A0D88A12F648}</Project>
       <Name>Ludo.Base</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="graphics\whiteField.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

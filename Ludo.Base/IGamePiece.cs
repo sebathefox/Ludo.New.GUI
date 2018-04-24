@@ -8,7 +8,7 @@ namespace Ludo.Base
 {
     public enum PieceState { Home, InPlay, Safe, Finished }
 
-    public delegate void PieceMovedHandler(IGamePiece piece, int previousField, int newField);
+    public delegate void PieceMovedHandler(IGamePiece piece, int dieValue);
 
     public interface IGamePiece
     {

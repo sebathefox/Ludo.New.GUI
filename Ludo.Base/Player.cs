@@ -9,15 +9,17 @@ namespace Ludo.Base
     public class Player
     {
         private readonly Piece[] pieces; //A array with the tokens the player uses in the game
+        private readonly List<Field> playerFields = new List<Field>(9);
 
         /// <summary>
         /// Creates a new Player object that can be used in the game
         /// </summary>
-        public Player(string name, int playerId, Piece[] pieces)
+        public Player(string name, int playerId, Piece[] pieces, List<Field> fields)
         {
             this.Name = name;
             this.Id = playerId;
             this.pieces = pieces;
+            this.playerFields = fields;
         }
 
         #region Properties/GetterMethods
@@ -46,6 +48,8 @@ namespace Ludo.Base
         /// Gets a single array from the token array
         /// </summary>
         public Piece GetPiece(int pieceId) => this.pieces[pieceId];
+
+        public List<Field> PlayerFields { get => this.playerFields; }
 
         #endregion
     }
