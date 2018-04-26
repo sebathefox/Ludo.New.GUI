@@ -20,9 +20,9 @@ namespace Ludo.Base
 
         void UpdateField(Field field, ImageBrush image);
 
-        void Piece_OnMove(IGamePiece piece, int dieValue);
+        void Piece_OnMove(IGamePiece piece);
 
-        void UpdateDie(ImageBrush image);
+        void UpdateDie(Button button);
 
         List<Player> GetPlayers { get; }
 
@@ -30,6 +30,6 @@ namespace Ludo.Base
 
         List<Field> GetPlayerFields(int id);
 
-        List<Field> AddPlayerFields();
+        List<Field> AddPlayerFields(GameColor color, int offset);
     }
 }

@@ -62,7 +62,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Fields\Globe.cs" />
     <Compile Include="Fields\Home.cs" />
+    <Compile Include="Fields\Safe.cs" />
+    <Compile Include="Fields\Star.cs" />
     <Compile Include="Fields\Start.cs" />
     <Compile Include="Fields\White.cs" />
     <Compile Include="GameManager.cs" />

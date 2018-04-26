@@ -21,6 +21,6 @@ namespace Ludo.Base
 
         List<Field> GetNextFields(IGamePiece piece, int dieValue);
 
-        Field GetNextField(IGamePiece piece, int offset);
+        Field GetNextField(IGamePiece piece);
     }
 }

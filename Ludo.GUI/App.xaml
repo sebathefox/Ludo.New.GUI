@@ -11,6 +11,37 @@
         <ImageBrush x:Key="GreenField" ImageSource="./graphics/greenField.png"/>
         <ImageBrush x:Key="YellowField" ImageSource="./graphics/yellowField.png"/>
         <!-- END Fields -->
-        
+        <!-- BEGIN Dice -->
+        <ImageBrush x:Key="DieOne" ImageSource="./graphics/diceOne.png"/>
+        <ImageBrush x:Key="DieTwo" ImageSource="./graphics/diceTwo.png"/>
+        <ImageBrush x:Key="DieThree" ImageSource="./graphics/diceThree.png"/>
+        <ImageBrush x:Key="DieFour" ImageSource="./graphics/diceFour.png"/>
+        <ImageBrush x:Key="DieFive" ImageSource="./graphics/diceFive.png"/>
+        <ImageBrush x:Key="DieSix" ImageSource="./graphics/diceSix.png"/>
+        <!-- END Dice -->
+        <!-- BEGIN Pieces -->
+        <ImageBrush x:Key="GreenPiece" ImageSource="./graphics/greenPiece.png"/>
+        <ImageBrush x:Key="YellowPiece" ImageSource="./graphics/yellowPiece.png"/>
+        <ImageBrush x:Key="BluePiece" ImageSource="./graphics/bluePiece.png"/>
+        <ImageBrush x:Key="RedPiece" ImageSource="./graphics/redPiece.png"/>
+        <!-- END Pieces -->
+        <Style x:Key="btn" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

@@ -35,9 +35,8 @@ namespace Ludo.GUI
         private void DoneButton_Click(object sender, RoutedEventArgs e)
         {
             PlayerInput.Visibility = System.Windows.Visibility.Collapsed;
-
-            // Temporary list to hold the the playernames until they have been saved in their Player objects
-            List<string> playerNames = new List<string>(4)
+            
+            List<string> vs = new List<string>(4)
             {
                 Player1Input.Text,
                 Player2Input.Text,
@@ -45,25 +44,30 @@ namespace Ludo.GUI
                 Player4Input.Text
             };
 
-            playerNames.ForEach((string data) =>
+            for (int i = 0; i < vs.Count; i++)
             {
-                if (String.IsNullOrWhiteSpace(data))
+                if (String.IsNullOrWhiteSpace(vs[i]))
                 {
-                    data = null;
+                    vs.Remove(vs[i]);
                 }
                 else
-                    Players.Items.Add(data);
-            });
-
-
+                {
+                    Players.Items.Add(vs[i]);
+                    manager.AddPlayer(vs[i], i + 1);
+                }
+            }
+            
             // Debug output
-            foreach (string pn in playerNames)
+            foreach (string pn in vs)
             {
                 Debug.WriteLine("Name: " + pn);
                 
             }
+            this.RollDie.Background = (ImageBrush)FindResource("WhiteField");
+            this.RollDie.Visibility = Visibility.Visible;
 
             manager.DrawBoard(GameBoard);
+            
         }
 
         // Exit button has been clicked
@@ -77,6 +81,13 @@ namespace Ludo.GUI
         private void Piece_OnMove(IGamePiece piece, int oldField, int newField)
         {
             // TODO Move event to GameManager
+        }
+
+        private void Die_Click(object sender, RoutedEventArgs e)
+        {
+            manager.UpdateDie(this.RollDie);
+            manager.Turn();
+            manager.ChangeTurn();
         }
     }
 }

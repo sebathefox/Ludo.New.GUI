@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ludo.Base
 {
-    class Dice
+    public class Dice
     {
         public Dice()
         {

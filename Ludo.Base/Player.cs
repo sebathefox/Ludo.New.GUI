@@ -20,6 +20,11 @@ namespace Ludo.Base
             this.Id = playerId;
             this.pieces = pieces;
             this.playerFields = fields;
+            for (int i = 0; i < 4; i++)
+            {
+                this.pieces[i].BasePosition = (this.playerFields[i].Id - 1);
+                this.playerFields[i].AddPiece(this.pieces[i]);
+            }
         }
 
         #region Properties/GetterMethods
@@ -49,7 +54,10 @@ namespace Ludo.Base
         /// </summary>
         public Piece GetPiece(int pieceId) => this.pieces[pieceId];
 
-        public List<Field> PlayerFields { get => this.playerFields; }
+        /// <summary>
+        /// Gets a list of the private fields of...
+        /// </summary>
+        public List<Field> GetPlayerFields { get => this.playerFields; }
 
         #endregion
     }

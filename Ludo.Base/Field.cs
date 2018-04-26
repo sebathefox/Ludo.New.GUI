@@ -13,7 +13,8 @@ namespace Ludo.Base
 
     public abstract class Field : Button
     {
-        private List<IGamePiece> pieces;
+        protected List<IGamePiece> pieces = new List<IGamePiece>(1);
+        protected ImageBrush defaultImage;
 
         protected Field(int id, int posX, int posY)
         {
@@ -36,15 +37,32 @@ namespace Ludo.Base
             pieces.Remove(index);
         }
 
+        public virtual void SetDefaultImage()
+        {
+            this.Background = this.defaultImage;
+        }
+
+        public virtual ImageBrush GetDefaultImage()
+        {
+            return this.defaultImage; ;
+        }
+
+        public virtual void AddPiece(Piece piece)
+        {
+            this.pieces.Add(piece);
+        }
+
         public int Id { get; private set; }
 
         public FieldType Type { get; protected set; }
 
         public List<IGamePiece> GetPieces { get => this.pieces; set => this.pieces = value; }
 
-        protected virtual GameColor Color { get; set; }
+        public abstract GameColor Color { get; }
 
         public virtual int PosX { get; set; }
         public virtual int PosY { get; set; }
+
+        
     }
 }

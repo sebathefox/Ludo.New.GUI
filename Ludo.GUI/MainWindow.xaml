@@ -6,6 +6,13 @@
         xmlns:local="clr-namespace:Ludo.GUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="800">
+    <Window.Resources>
+        <ControlTemplate x:Key="PlayerLine" TargetType="Button">
+            
+        </ControlTemplate>
+    </Window.Resources>
+    
+    
     <Grid>
 
         <!-- Used to see the current players -->
@@ -13,9 +20,11 @@
             <ListView x:Name="Players" VerticalAlignment="Top"/>
         </Grid>
 
-        <Canvas x:Name="GameBoard"/>
+        <Canvas x:Name="GameBoard">
+            <Button x:Name="RollDie" Focusable="False" Visibility="Collapsed" Style="{DynamicResource btn}" Content="dice" Canvas.Left="688" Canvas.Top="162" Width="32" Height="32" Click="Die_Click"/>
+        </Canvas>
 
-        <!-- Needs to me in the bottom -->
+        <!-- Needs to be in the bottom -->
         <Grid x:Name="PlayerInput" Visibility="Visible">
             <Grid Background="Black" Opacity="0.5"/>
             <Border
