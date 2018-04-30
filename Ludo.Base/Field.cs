@@ -13,8 +13,8 @@ namespace Ludo.Base
 
     public abstract class Field : Button
     {
-        protected List<IGamePiece> pieces = new List<IGamePiece>(1);
-        protected ImageBrush defaultImage;
+        protected List<IGamePiece> pieces = new List<IGamePiece>(1); // The pieces that are on the field
+        protected ImageBrush defaultImage; // The field's default image (Used for when resetting the field)
 
         protected Field(int id, int posX, int posY)
         {
@@ -24,18 +24,30 @@ namespace Ludo.Base
             this.PosX = posX;
             this.PosY = posY;
         }
-
-        public virtual bool IsEnemyPiece()
-        {
-            if (this.pieces.Count > 0)
-                return true;
-            return false;
-        }
-
+        
+        // Removes the piece at the specified index
         public virtual void RemovePiece(IGamePiece index)
         {
             pieces.Remove(index);
         }
+        
+        // Adds a new piece to the list
+        public virtual void AddPiece(IGamePiece piece)
+        {
+            this.pieces.Add(piece);
+        }
+
+        #region Getters/Setters
+
+        public int Id { get; private set; }
+
+        public FieldType Type { get; protected set; }
+
+        public virtual GameColor Color { get; set; }
+
+        public virtual int PosX { get; set; }
+
+        public virtual int PosY { get; set; }
 
         public virtual void SetDefaultImage()
         {
@@ -44,25 +56,11 @@ namespace Ludo.Base
 
         public virtual ImageBrush GetDefaultImage()
         {
-            return this.defaultImage; ;
+            return this.defaultImage;
         }
-
-        public virtual void AddPiece(Piece piece)
-        {
-            this.pieces.Add(piece);
-        }
-
-        public int Id { get; private set; }
-
-        public FieldType Type { get; protected set; }
 
         public List<IGamePiece> GetPieces { get => this.pieces; set => this.pieces = value; }
 
-        public abstract GameColor Color { get; }
-
-        public virtual int PosX { get; set; }
-        public virtual int PosY { get; set; }
-
-        
+        #endregion
     }
 }

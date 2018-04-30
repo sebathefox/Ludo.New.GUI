@@ -14,7 +14,7 @@ namespace Ludo.GUI.Fields
         public Star(int id, int posX, int posY) : base(id, posX, posY)
         {
             this.Type = FieldType.StarField;
-            this.Background = this.defaultImage = (ImageBrush)FindResource("DieOne");
+            this.Background = this.defaultImage = (ImageBrush)FindResource("Star");
             this.color = GameColor.White;
         }
 

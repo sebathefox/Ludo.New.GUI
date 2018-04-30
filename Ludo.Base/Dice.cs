@@ -10,16 +10,16 @@ namespace Ludo.Base
     {
         public Dice()
         {
+            // Initializes a new random value
             this.Value = new Random().Next(1, 7);
         }
 
+        // Throws the die to get a new value
         public int Throw()
         {
             return this.Value = new Random().Next(1, 7);
         }
 
         public int Value { get; private set; }
-
-        // TODO Implement imagestuffish...
     }
 }

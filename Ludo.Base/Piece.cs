@@ -12,7 +12,6 @@ namespace Ludo.Base
 
         private int position;
 
-        public event PieceMovedHandler OnMove;
         public Piece(int id, GameColor color, int startPos)
         {
             this.Id = id;
@@ -20,15 +19,29 @@ namespace Ludo.Base
             this.State = PieceState.Home; //sets the default state to 'Home'
             this.StartPosition = this.position = startPos;
             this.CanMove = false;
+            this.SetSafePosition();
         }
 
-        public void MovePiece(ref Field field, int dieValue)
+        private void SetSafePosition()
         {
-            Field oldField = field;
-            
+            switch (this.Color)
+            {
+                case GameColor.Green:
+                    GetSafePosition = 53;
+                    break;
+                case GameColor.Yellow:
+                    GetSafePosition = 58;
+                    break;
+                case GameColor.Blue:
+                    GetSafePosition = 63;
+                    break;
+                case GameColor.Red:
+                    GetSafePosition = 68;
+                    break;
+                default:
+                    throw new Exception("Unknown Error.");
+            }
         }
-
-        
 
         #region Properties
 
@@ -52,20 +65,29 @@ namespace Ludo.Base
         /// </summary>
         public void SetPosition(int position)
         {
-            this.LastPosition = this.position;
             this.position = position;
-            OnMove(this);
         }
 
+        /// <summary>
+        /// Gets the piece's current position
+        /// </summary>
+        /// <returns>Returns the position as an int</returns>
         public int GetPosition() => this.position;
 
-        public int LastPosition { get; private set; }
-
+        /// <summary>
+        /// Gets the safeposition as an int
+        /// </summary>
+        public int GetSafePosition { get; protected set; }
+       
         /// <summary>
         /// Gets the startposition
         /// </summary>
         public int StartPosition { get; private set; }
 
+
+        /// <summary>
+        /// Gets and/or sets the baseposition
+        /// </summary>
         public int BasePosition { get; set; }
 
         /// <summary>
@@ -82,7 +104,7 @@ namespace Ludo.Base
 
         public override string ToString()
         {
-            return "PieceId: " + Id + ", Color: " + Color;
+            return "PieceId: " + Id + ", Color: " + Color + ", Position: " + position;
         }
     }
 }

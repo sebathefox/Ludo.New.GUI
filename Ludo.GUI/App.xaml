@@ -5,11 +5,18 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!-- BEGIN Fields -->
-        <ImageBrush x:Key="WhiteField" ImageSource="./graphics/whiteField.png"/>
-        <ImageBrush x:Key="RedField" ImageSource="./graphics/redField.png"/>
-        <ImageBrush x:Key="BlueField"  ImageSource="./graphics/blueField.png"/>
-        <ImageBrush x:Key="GreenField" ImageSource="./graphics/greenField.png"/>
-        <ImageBrush x:Key="YellowField" ImageSource="./graphics/yellowField.png"/>
+        <ImageBrush x:Key="WhiteField" ImageSource="./graphics/fields/whiteField.png"/>
+        <ImageBrush x:Key="RedField" ImageSource="./graphics/fields/redField.png"/>
+        <ImageBrush x:Key="BlueField"  ImageSource="./graphics/fields/blueField.png"/>
+        <ImageBrush x:Key="GreenField" ImageSource="./graphics/fields/greenField.png"/>
+        <ImageBrush x:Key="YellowField" ImageSource="./graphics/fields/yellowField.png"/>
+        <ImageBrush x:Key="Star" ImageSource="./graphics/fields/starField.png"/>
+        <!-- BEGIN Globe Fields -->
+        <ImageBrush x:Key="Globe" ImageSource="./graphics/fields/GlobeField.png"/>
+        <ImageBrush x:Key="RedGlobe" ImageSource="./graphics/fields/redGlobe.png"/>
+        <ImageBrush x:Key="BlueGlobe"  ImageSource="./graphics/fields/blueGlobe.png"/>
+        <ImageBrush x:Key="GreenGlobe" ImageSource="./graphics/fields/greenGlobe.png"/>
+        <ImageBrush x:Key="YellowGlobe" ImageSource="./graphics/fields/yellowGlobe.png"/>
         <!-- END Fields -->
         <!-- BEGIN Dice -->
         <ImageBrush x:Key="DieOne" ImageSource="./graphics/diceOne.png"/>

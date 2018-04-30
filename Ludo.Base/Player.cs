@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ludo.Base
 {
+    public enum GameColor { Green, Yellow, Blue, Red, White }
+
     public class Player
     {
         private readonly Piece[] pieces; //A array with the tokens the player uses in the game
@@ -20,6 +22,8 @@ namespace Ludo.Base
             this.Id = playerId;
             this.pieces = pieces;
             this.playerFields = fields;
+
+            // Populates the homefields with pieces
             for (int i = 0; i < 4; i++)
             {
                 this.pieces[i].BasePosition = (this.playerFields[i].Id - 1);

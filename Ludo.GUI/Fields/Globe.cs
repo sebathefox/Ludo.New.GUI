@@ -14,11 +14,11 @@ namespace Ludo.GUI.Fields
         public Globe(int id, int posX, int posY) : base(id, posX, posY)
         {
             this.Type = FieldType.GlobeField;
-            this.Background = this.defaultImage = (ImageBrush)FindResource("DieThree");
+            this.Background = this.defaultImage = (ImageBrush)FindResource("Globe");
             this.Color = GameColor.White;
         }
 
-        public override GameColor Color { get; }
+        public override GameColor Color { get; set; }
         public GameColor SetColor { private get => this.color; set => this.color = value; }
     }
 }

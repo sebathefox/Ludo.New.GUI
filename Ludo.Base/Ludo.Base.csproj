@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Dice.cs" />
     <Compile Include="Field.cs" />
-    <Compile Include="Game.cs" />
     <Compile Include="IGameController.cs" />
     <Compile Include="IGameMovement.cs" />
     <Compile Include="IGamePiece.cs" />

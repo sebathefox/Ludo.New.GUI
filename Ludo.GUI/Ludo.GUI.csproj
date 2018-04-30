@@ -105,7 +105,6 @@
     <Folder Include="resource\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="graphics\blueField.png" />
     <Resource Include="graphics\bluePiece.png" />
     <Resource Include="graphics\diceFive.png" />
     <Resource Include="graphics\diceFour.png" />
@@ -113,11 +112,8 @@
     <Resource Include="graphics\diceSix.png" />
     <Resource Include="graphics\diceThree.png" />
     <Resource Include="graphics\diceTwo.png" />
-    <Resource Include="graphics\greenField.png" />
     <Resource Include="graphics\greenPiece.png" />
-    <Resource Include="graphics\redField.png" />
     <Resource Include="graphics\redPiece.png" />
-    <Resource Include="graphics\yellowField.png" />
     <Resource Include="graphics\yellowPiece.png" />
   </ItemGroup>
   <ItemGroup>
@@ -127,7 +123,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="graphics\whiteField.png" />
+    <Resource Include="graphics\fields\blueField.png" />
+    <Resource Include="graphics\fields\blueGlobe.png" />
+    <Resource Include="graphics\fields\globeField.png" />
+    <Resource Include="graphics\fields\greenField.png" />
+    <Resource Include="graphics\fields\greenGlobe.png" />
+    <Resource Include="graphics\fields\redField.png" />
+    <Resource Include="graphics\fields\redGlobe.png" />
+    <Resource Include="graphics\fields\starField.png" />
+    <Resource Include="graphics\fields\whiteField.png" />
+    <Resource Include="graphics\fields\yellowField.png" />
+    <Resource Include="graphics\fields\yellowGlobe.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
