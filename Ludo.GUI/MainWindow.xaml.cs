@@ -84,13 +84,15 @@ namespace Ludo.GUI
             manager.UpdateDie(this.RollDie); // Updates the die's graphics
             manager.Turn(); // The current player's turn
             manager.ChangeTurn();// Changes the turn to the next player
+
+            
             
             // Shows the current players turn
             PlayerTurn.Text = "Player " + manager.GetPlayer(index).Name + "'s turn";
 
             // Used for the PlayerTurn field
             index++;
-            if (index > playerNames.Count - 1)
+            if (index >= manager.GetPlayers().Count)
                 index = 0;
         }
     }
