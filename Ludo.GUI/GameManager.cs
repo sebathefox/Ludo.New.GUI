@@ -10,10 +10,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Ludo.Base;
+using Ludo.GUI.Controls;
 
 namespace Ludo.GUI
 {
-    public class GameManager : IGameController
+    public class GameManager// : IGameController
     {
         #region Fields
 
@@ -21,6 +22,7 @@ namespace Ludo.GUI
         private List<Field> fields = new List<Field>();
         private Dice dice = new Dice();
         private Field[] startFields;
+        private MovementController movement = new MovementController();
 
         private int playerTurn = 0;
         #endregion
@@ -160,7 +162,6 @@ namespace Ludo.GUI
             } 
         }
 
-
         /// <summary>
         /// Validates if the player can move any piece and handles accordingly
         /// </summary>
@@ -212,67 +213,6 @@ namespace Ludo.GUI
             {
                 playerTurn++;
             }
-        }
-
-        /// <summary>
-        /// Checks if there is any pieces at the specified field
-        /// </summary>
-        /// <param name="field">the field to search</param>
-        /// <returns>True if any pieces otherwise false</returns>
-        public bool IsPiecePlaced(Field field)
-        {
-            return field.GetPieces.Count != 0 ? true : false;
-        }
-
-        /// <summary>
-        /// "Kills" the specified piece and resets its metadata
-        /// </summary>
-        /// <param name="piece">The piece to "kill"</param>
-        public void KillPiece(ref Piece piece)
-        {
-            piece.Counter = 0;
-            piece.State = PieceState.Home;
-            piece.SetPosition(piece.StartPosition);
-        }
-
-
-        /// <summary>
-        /// Resets the specified field back to it's default values
-        /// </summary>
-        /// <param name="field">The field to reset</param>
-        private void ResetField(Field field)
-        {
-            field.SetDefaultImage(); // First resets the background image
-            for (int i = 0; i < field.GetPieces.Count; i++)
-            {
-                field.RemovePiece(field.GetPieces[i]); // Removes every piece from the field
-            }
-
-            if (field is Fields.White)
-            {
-                Fields.White fie = field as Fields.White;
-                fie.SetColor = GameColor.White;
-            }
-            else if (field is Fields.Star)
-            {
-                Fields.Star fie = field as Fields.Star;
-                fie.SetColor = GameColor.White;
-            }
-            else if (field is Fields.Globe)
-            {
-                Fields.Globe fie = field as Fields.Globe;
-                fie.SetColor = GameColor.White;
-            }
-        }
-
-        /// <summary>
-        /// Updates the image of a field
-        /// </summary>
-        /// <param name="field">The field to update</param>
-        /// <param name="image">The image to set as background</param>
-        public void UpdateField(Field field, ImageBrush image)
-        {
-            field.Background = image;
         }
 
         /// <summary>
@@ -413,109 +353,14 @@ namespace Ludo.GUI
         {
             // Converts the object using cast
             Field field = (Field)sender;
+            Player player = this.players[playerTurn];
 
-            // Checks if there is any pieces to move
-            if (field.GetPieces.Count != 0)
-            {
-                // The piece to move (Always chooses the first in the stack)
-                Piece piece = (Piece)field.GetPieces.First();
-
-                if (piece.GetPosition() + dice.Value > 51 && piece.State != PieceState.Safe)
-                {
-                    piece.SetPosition((piece.GetPosition() - 52));
-                }
-
-                // The field to move to
-                Field fieldToMove = fields[(piece.GetPosition() + dice.Value)];
-                
-                // TODO change from exception
-                if (!piece.CanMove && players[playerTurn].Color == piece.Color)
-                    throw new Exception("ERROR: Piece cannot move.");
-
-                else if (piece.Counter + dice.Value >= 55)
-                {
-                    piece.State = PieceState.Finished;
-                    field.Color = GameColor.White;
-                    UpdateField(field, field.GetDefaultImage());
-                }
-
-                else if(piece.Counter + dice.Value >= 50)
-                {
-                    int tmpMath = piece.GetPosition() + dice.Value - piece.GetSafePosition;
-                    fieldToMove = fields[(piece.GetSafePosition + tmpMath)];
-                    PlacePiece(piece, fieldToMove, PieceState.Safe);
-                }
-
-                else if (piece.State == PieceState.Home)
-                {
-                    fieldToMove = fields[(piece.StartPosition)];
-
-                    piece.State = PieceState.InPlay;
-                    fieldToMove.AddPiece(piece);
-                    UpdateField(fieldToMove, GetImage(piece.Color, fieldToMove));
-                    ResetField(field);
-                }
-
-                else if (IsPiecePlaced(fieldToMove))
-                {
-                    if (fieldToMove.GetPieces[0].Color != piece.Color)
-                        KillPiece(ref piece);
-                    else
-                    {
-                        PlacePiece(piece, fieldToMove, PieceState.InPlay);
-                        ResetField(field);
-                    }
-                }
-                else
-                {
-                    PlacePiece(piece, fieldToMove, PieceState.InPlay);
-                    ResetField(field);
-                }
-                //Debug.WriteLine("Player moved piece: " + fieldToMove.GetPieces.First().ToString());
-            }
-            else Debug.WriteLine("Player tried to move a token from an empty field");
+            movement.Move(ref field, ref this.fields, ref player, dice.Value);
         }
 
-        /// <summary>
-        /// Places the selected piece on the selected field
-        /// </summary>
-        /// <param name="piece">Piece to place</param>
-        /// <param name="field">Field to place piece on</param>
-        /// <param name="state">State of the piece</param>
-        private void PlacePiece(Piece piece, Field field, PieceState state)
+        public List<Player> GetPlayers()
         {
-            //First configure the piece
-            piece.SetPosition(piece.GetPosition() + dice.Value);
-            piece.Counter += dice.Value;
-            piece.State = state;
-
-            //Then configure the field
-            field.Color = piece.Color;
-            field.AddPiece(piece);
-            UpdateField(field, GetImage(piece.Color, field));
-        }
-
-        /// <summary>
-        /// Gets the image of a specific piece
-        /// </summary>
-        /// <param name="color">The color of the piece</param>
-        /// <param name="field">The piece to update</param>
-        /// <returns>Returns the image</returns>
-        private ImageBrush GetImage(GameColor color, Field field)
-        {
-            switch (color)
-            {
-                case GameColor.Green:
-                    return (ImageBrush)field.FindResource("GreenPiece");
-                case GameColor.Yellow:
-                    return (ImageBrush)field.FindResource("YellowPiece");
-                case GameColor.Blue:
-                    return (ImageBrush)field.FindResource("BluePiece");
-                case GameColor.Red:
-                    return (ImageBrush)field.FindResource("RedPiece");
-                default:
-                    throw new Exception("Unknown Error.");
-            }
+            return this.players;
         }
     }
 }

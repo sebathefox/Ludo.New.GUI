@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Ludo.Base
 {
@@ -14,12 +15,20 @@ namespace Ludo.Base
         /// <summary>
         /// Validates if the player can move any piece and handles accordingly
         /// </summary>
-        void Turn();
+        //void Turn();
 
-        /// <summary>
-        /// Changes the turn
-        /// </summary>
-        void ChangeTurn();
+        ///// <summary>
+        ///// Changes the turn
+        ///// </summary>
+        //void ChangeTurn();
+
+        void Move(ref Field field, ref List<Field> fields, ref Player player, int dieValue);
+
+        void UpdateField(Field field, ImageBrush image);
+
+        void ResetField(Field field);
+
+        void PlacePiece(Piece piece, Field field, PieceState state, int dieValue);
 
         /// <summary>
         /// Checks if there is any pieces at the specified field

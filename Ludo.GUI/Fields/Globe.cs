@@ -10,7 +10,6 @@ namespace Ludo.GUI.Fields
 {
     class Globe : Field
     {
-        private GameColor color;
         public Globe(int id, int posX, int posY) : base(id, posX, posY)
         {
             this.Type = FieldType.GlobeField;
@@ -18,7 +17,11 @@ namespace Ludo.GUI.Fields
             this.Color = GameColor.White;
         }
 
+        public void Protec()
+        {
+            
+        }
+
         public override GameColor Color { get; set; }
-        public GameColor SetColor { private get => this.color; set => this.color = value; }
     }
 }

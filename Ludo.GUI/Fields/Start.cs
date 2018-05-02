@@ -1,4 +1,5 @@
 ﻿using Ludo.Base;
+using Ludo.GUI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,28 +16,7 @@ namespace Ludo.GUI.Fields
         {
             this.Type = FieldType.StartField;
             this.color = color;
-            GetImage();
-        }
-
-        private void GetImage()
-        {
-            switch (this.color)
-            {
-                case GameColor.Green:
-                    this.Background = this.defaultImage = (ImageBrush)FindResource("GreenGlobe");
-                    break;
-                case GameColor.Yellow:
-                    this.Background = this.defaultImage = (ImageBrush)FindResource("YellowGlobe");
-                    break;
-                case GameColor.Blue:
-                    this.Background = this.defaultImage = (ImageBrush)FindResource("BlueGlobe");
-                    break;
-                case GameColor.Red:
-                    this.Background = this.defaultImage = (ImageBrush)FindResource("RedGlobe");
-                    break;
-                default:
-                    throw new Exception("Unknown Error.");
-            }
+            this.Background = this.defaultImage = (ImageBrush)Draw.GetSpecialFieldImage(this);
         }
 
         public override GameColor Color => this.color;
