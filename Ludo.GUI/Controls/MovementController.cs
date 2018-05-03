@@ -12,6 +12,7 @@ namespace Ludo.GUI.Controls
 {
     class MovementController : IGameMovement
     {
+        private Field homeField;
         
         public MovementController(Finished eDelegate)
         {
@@ -27,12 +28,15 @@ namespace Ludo.GUI.Controls
         /// <param name="dieValue">the value of the die</param>
         public void Move( ref Field field, ref List<Field> fields, ref Player player, int dieValue)
         {
+            Fields = fields;
             
             // Checks if there is any pieces to move
             if (field.GetPieces.Count != 0)
             {
                 // The piece to move (Always chooses the first in the stack)
                 Piece piece = (Piece)field.GetPieces.First();
+
+                homeField = player.GetPlayerFields[(piece.BasePosition)];
 
                 if (piece.GetPosition() + dieValue > 51 && piece.State != PieceState.Safe)
                 {
@@ -46,7 +50,7 @@ namespace Ludo.GUI.Controls
                 if (!piece.CanMove && player.Color != piece.Color)
                     throw new Exception("ERROR: Piece cannot move.");
 
-                else if (piece.Counter + dieValue >= 55)
+                else if (piece.Counter + dieValue > 55)
                 {
                     
                     //field.Color = GameColor.White;
@@ -76,12 +80,27 @@ namespace Ludo.GUI.Controls
 
                 else if (IsPiecePlaced(fieldToMove))
                 {
-                    if (fieldToMove.GetPieces[0].Color != piece.Color && fieldToMove.Type != FieldType.GlobeField)
-                        KillPiece(ref piece);
-                    else
+                    if (fieldToMove.GetPieces.Count > 1 && fieldToMove.Color != piece.Color)
                     {
-                        PlacePiece(piece, fieldToMove, PieceState.InPlay, dieValue);
-                        ResetField(field);
+                        KillPiece(ref piece);
+                        return;
+                    }
+                }
+                else if (IsSpecialField(fieldToMove) != FieldType.BaseField)
+                {
+                    MovementController dis = this;
+
+                    switch (fieldToMove)
+                    {
+                        case Globe glo:
+                            glo.Protec(ref piece, ref field, ref glo, ref dis, dieValue);
+                            break;
+                        case Start sta:
+                            sta.Protec(ref piece, ref field, ref sta, ref dis, dieValue);
+                            break;
+                        case Star star:
+                            star.Protec(ref piece, ref field, ref dis);
+                            break;
                     }
                 }
                 else
@@ -91,6 +110,11 @@ namespace Ludo.GUI.Controls
                 }
             }
             else Trace.WriteLine("\nPlayer tried to move a token from an empty field");
+
+            foreach (Piece piece in player.GetPieces())
+            {
+                piece.CanMove = false;
+            }
         }
 
         /// <summary>
@@ -116,14 +140,16 @@ namespace Ludo.GUI.Controls
         /// <param name="dieValue">The value of the die</param>
         public void PlacePiece(Piece piece, Field field, PieceState state, int dieValue)
         {
-            if (state != PieceState.Safe)
+            // Configure the piece
+            if (state != PieceState.Safe || state != PieceState.Home)
                 piece.SetPosition(piece.GetPosition() + dieValue);
             else
                 piece.SetPosition(field.Id);
             piece.Counter += dieValue;
             piece.State = state;
+            piece.CanMove = false;
 
-            //Then configure the field
+            // Then configure the field
             field.Color = piece.Color;
             field.AddPiece(piece);
             UpdateField(field, GetImage(piece.Color, field));
@@ -136,27 +162,23 @@ namespace Ludo.GUI.Controls
         public void ResetField(Field field)
         {
             LogControl.Log("");
-            LogControl.Log("PRE: " + field.ToString());
+            LogControl.Log("PRE: " + field);
 
             field.RemovePiece(field.GetPieces.First()); // Removes every piece from the field
             if (field.GetPieces.Count < 1)
                 field.SetDefaultImage(); // First resets the background image
-            //for (int i = 0; i < field.GetPieces.Count; i++)
-            //{
-                
-            //}
 
-            if (field is White fie1)
+            switch (field)
             {
-                fie1.SetColor = GameColor.White;
-            }
-            else if (field is Star fie2)
-            {
-                fie2.SetColor = GameColor.White;
-            }
-            else if (field is Globe fie3)
-            {
-                fie3.Color = GameColor.White;
+                case White fie1:
+                    fie1.SetColor = GameColor.White;
+                    break;
+                case Star fie2:
+                    fie2.SetColor = GameColor.White;
+                    break;
+                case Globe fie3:
+                    fie3.Color = GameColor.White;
+                    break;
             }
         }
         
@@ -165,9 +187,30 @@ namespace Ludo.GUI.Controls
         /// </summary>
         /// <param name="field">the field to search</param>
         /// <returns>True if any pieces otherwise false</returns>
-        public bool IsPiecePlaced(Field field)
+        public bool IsPiecePlaced(Field field) => field.GetPieces.Count != 0;
+
+        /// <summary>
+        /// Checks if the field is a special field
+        /// </summary>
+        /// <param name="field">The field to validate</param>
+        /// <returns>The type of field</returns>
+        public FieldType IsSpecialField(Field field)
         {
-            return field.GetPieces.Count != 0;
+            switch (field.Type)
+            {
+                case FieldType.GlobeField:
+                    return FieldType.GlobeField;
+                case FieldType.StarField:
+                    return FieldType.StarField;
+                case FieldType.StartField:
+                    return FieldType.StartField;
+                //case FieldType.HomeField:
+                //    return FieldType.HomeField;
+                //case FieldType.SafeField:
+                //    return FieldType.SafeField;
+                default:
+                    return FieldType.BaseField;
+            }
         }
 
         /// <summary>
@@ -176,9 +219,11 @@ namespace Ludo.GUI.Controls
         /// <param name="piece">The piece to "kill"</param>
         public void KillPiece(ref Piece piece)
         {
+            piece.CanMove = false;
             piece.Counter = 0;
             piece.State = PieceState.Home;
             piece.SetPosition(piece.StartPosition);
+            PlacePiece(piece, homeField, PieceState.Home, 0);
         }
 
         /// <summary>
@@ -205,5 +250,7 @@ namespace Ludo.GUI.Controls
         }
 
         public event Finished OnMove;
+
+        public List<Field> Fields { get; private set; }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using Ludo.Base;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Ludo.GUI.Controls;
 
 namespace Ludo.GUI.Fields
 {
@@ -17,9 +19,20 @@ namespace Ludo.GUI.Fields
             this.Color = GameColor.White;
         }
 
-        public void Protec()
+        public void Protec(ref Piece piece, ref Field field, ref Globe fieldToMove, ref MovementController control, int dieValue)
         {
-            
+            Debug.WriteLine("globe was activated: " + this);
+
+            if (piece.Color != fieldToMove.Color && fieldToMove.Color != GameColor.White)
+            {
+                control.KillPiece(ref piece);
+                control.ResetField(field);
+            }
+            else
+            {
+                control.PlacePiece(piece, fieldToMove, PieceState.InPlay, dieValue);
+                control.ResetField(field);
+            }
         }
 
         public override GameColor Color { get; set; }

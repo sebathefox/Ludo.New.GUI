@@ -213,6 +213,11 @@ namespace Ludo.GUI
         /// </summary>
         public void ChangeTurn()
         {
+            foreach (Piece piece in players[playerTurn].GetPieces())
+            {
+                piece.CanMove = false;
+            }
+
             if (playerTurn == (players.Count - 1))
             {
                 playerTurn = 0;
