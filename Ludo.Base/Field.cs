@@ -13,8 +13,12 @@ namespace Ludo.Base
 
     public abstract class Field : Button
     {
+        #region Fields
+
         protected List<IGamePiece> pieces = new List<IGamePiece>(1); // The pieces that are on the field
         protected ImageBrush defaultImage; // The field's default image (Used for when resetting the field)
+
+        #endregion
 
         protected Field(int id, int posX, int posY)
         {
@@ -62,5 +66,13 @@ namespace Ludo.Base
         public List<IGamePiece> GetPieces { get => this.pieces; set => this.pieces = value; }
 
         #endregion
+
+
+        /// <summary>Returns the string representation of a <see cref="T:System.Windows.Controls.Control" /> object. </summary>
+        /// <returns>A string that represents the control.</returns>
+        public override string ToString()
+        {
+            return "Pieces: " + this.GetPieces.Count + ", Id" + this.Id;
+        }
     }
 }

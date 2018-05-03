@@ -7,21 +7,13 @@ using System.Windows.Media;
 
 namespace Ludo.Base
 {
+    public delegate void Finished(object sender, Piece piece);
+
     /// <summary>
     /// Controls the movement scheme that is used to move objects on the board
     /// </summary>
     public interface IGameMovement
     {
-        /// <summary>
-        /// Validates if the player can move any piece and handles accordingly
-        /// </summary>
-        //void Turn();
-
-        ///// <summary>
-        ///// Changes the turn
-        ///// </summary>
-        //void ChangeTurn();
-
         void Move(ref Field field, ref List<Field> fields, ref Player player, int dieValue);
 
         void UpdateField(Field field, ImageBrush image);
@@ -42,5 +34,7 @@ namespace Ludo.Base
         /// </summary>
         /// <param name="piece">The piece to "kill"</param>
         void KillPiece(ref Piece piece);
+
+        event Finished OnMove;
     }
 }

@@ -14,7 +14,7 @@ using Ludo.GUI.Controls;
 
 namespace Ludo.GUI
 {
-    public class GameManager// : IGameController
+    public class GameManager : IGameController
     {
         #region Fields
 
@@ -22,10 +22,15 @@ namespace Ludo.GUI
         private List<Field> fields = new List<Field>();
         private Dice dice = new Dice();
         private Field[] startFields;
-        private MovementController movement = new MovementController();
+        private MovementController movement;
 
         private int playerTurn = 0;
         #endregion
+
+        public GameManager()
+        {
+            movement = new MovementController(this.OnPieceFinished);
+        }
 
         /// <summary>
         /// Adds a new player to the controller
@@ -194,10 +199,13 @@ namespace Ludo.GUI
                         choice++;
                         break;
                 }
-                Debug.WriteLine("DEBUG: PieceState: " + pcs.State);
+
+                LogControl.Log("");
+                LogControl.Log("DEBUG: Piece: " + pcs);
+                LogControl.Log("");
             }
             if (choice == 0)
-                Debug.WriteLine("Player " + turn.Name + " Could not move any pieces this turn");
+                LogControl.Log("Player " + turn.Name + " : " + turn.Color + " Could not move any pieces this turn");
         }
 
         /// <summary>
@@ -356,6 +364,31 @@ namespace Ludo.GUI
             Player player = this.players[playerTurn];
 
             movement.Move(ref field, ref this.fields, ref player, dice.Value);
+        }
+
+        /// <summary>
+        /// Event that checks if all of one players pieces are finished
+        /// </summary>
+        /// <param name="sender">The class that fired the event</param>
+        /// <param name="piece">The piece to validate</param>
+        private void OnPieceFinished(object sender, Piece piece)
+        {
+            LogControl.Log("Someone got a piece to the finishline");
+            int finished = 0;
+            players.ForEach((player) =>
+            {
+                if (player.Color == piece.Color)
+                {
+                    foreach (Piece pcs in player.GetPieces())
+                    {
+                        if (pcs.State == PieceState.Finished)
+                            finished++;
+                    }
+                }
+            });
+
+            if (finished >= 4)
+                throw new Exception("You Won");
         }
 
         public List<Player> GetPlayers()

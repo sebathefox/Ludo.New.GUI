@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace Ludo.Base
 {
-    public interface IGameController : IGameMovement
+    public interface IGameController
     {
         /// <summary>
         /// Adds a new player to the controller
@@ -29,14 +29,7 @@ namespace Ludo.Base
         /// </summary>
         /// <param name="canvas">The canvas object to draw the board on</param>
         void DrawBoard(Canvas canvas);
-
-        /// <summary>
-        /// Updates the image of a field
-        /// </summary>
-        /// <param name="field">The field to update</param>
-        /// <param name="image">The image to set as background</param>
-        void UpdateField(Field field, ImageBrush image);
-
+        
         /// <summary>
         /// Updates the dice's graphics
         /// </summary>

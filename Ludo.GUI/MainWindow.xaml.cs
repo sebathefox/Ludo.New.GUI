@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Ludo.GUI.Controls;
 
 namespace Ludo.GUI
 {
@@ -22,13 +23,18 @@ namespace Ludo.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private GameManager manager = new GameManager();
-        List<string> playerNames;
+        private readonly GameManager manager = new GameManager();
         private int index = 0;
 
         public MainWindow()
         {
             InitializeComponent();
+            LogControl.Init();
+        }
+
+        ~MainWindow()
+        {
+            LogControl.Close();
         }
 
         // Sets the playernames so the players can be instanciated
@@ -38,7 +44,7 @@ namespace Ludo.GUI
             PlayerInput.Visibility = System.Windows.Visibility.Collapsed;
             
             // List of playernames
-            playerNames = new List<string>(4)
+            List<string> playerNames = new List<string>(4)
             {
                 Player1Input.Text,
                 Player2Input.Text,
@@ -63,7 +69,8 @@ namespace Ludo.GUI
             // Debug output
             foreach (string pn in playerNames)
             {
-                Debug.WriteLine("Name: " + pn);
+                LogControl.Log("Players:");
+                LogControl.Log("Name: " + pn);
                 
             }
             this.RollDie.Background = (ImageBrush)FindResource("WhiteField");
@@ -81,6 +88,7 @@ namespace Ludo.GUI
 
         private void Die_Click(object sender, RoutedEventArgs e)
         {
+            
             manager.UpdateDie(this.RollDie); // Updates the die's graphics
             manager.Turn(); // The current player's turn
             manager.ChangeTurn();// Changes the turn to the next player

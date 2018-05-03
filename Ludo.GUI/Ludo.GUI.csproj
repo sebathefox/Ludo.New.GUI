@@ -63,6 +63,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\Draw.cs" />
+    <Compile Include="Controls\LogControl.cs" />
     <Compile Include="Controls\MovementController.cs" />
     <Compile Include="Fields\Globe.cs" />
     <Compile Include="Fields\Home.cs" />

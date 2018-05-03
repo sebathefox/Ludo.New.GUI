@@ -6,11 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Ludo.GUI.Fields;
 
 namespace Ludo.GUI.Controls
 {
-    class MovementController : Ludo.Base.IGameMovement
+    class MovementController : IGameMovement
     {
+        
+        public MovementController(Finished eDelegate)
+        {
+            this.OnMove += eDelegate;
+        }
 
         /// <summary>
         /// Moves the piece and cleans it's path
@@ -21,6 +27,7 @@ namespace Ludo.GUI.Controls
         /// <param name="dieValue">the value of the die</param>
         public void Move( ref Field field, ref List<Field> fields, ref Player player, int dieValue)
         {
+            
             // Checks if there is any pieces to move
             if (field.GetPieces.Count != 0)
             {
@@ -36,14 +43,17 @@ namespace Ludo.GUI.Controls
                 Field fieldToMove = fields[(piece.GetPosition() + dieValue)];
 
                 // TODO change from exception
-                if (!piece.CanMove && player.Color == piece.Color)
+                if (!piece.CanMove && player.Color != piece.Color)
                     throw new Exception("ERROR: Piece cannot move.");
 
                 else if (piece.Counter + dieValue >= 55)
                 {
-                    piece.State = PieceState.Finished;
-                    field.Color = GameColor.White;
+                    
+                    //field.Color = GameColor.White;
                     UpdateField(field, field.GetDefaultImage());
+                    ResetField(field);
+                    piece.State = PieceState.Finished;
+                    OnMove?.Invoke(this, piece); // Fires the event only if there is any listeners
                 }
 
                 else if (piece.Counter + dieValue >= 50)
@@ -51,6 +61,7 @@ namespace Ludo.GUI.Controls
                     int tmpMath = piece.GetPosition() + dieValue - piece.GetSafePosition;
                     fieldToMove = fields[(piece.GetSafePosition + tmpMath)];
                     PlacePiece(piece, fieldToMove, PieceState.Safe, dieValue);
+                    ResetField(field);
                 }
 
                 else if (piece.State == PieceState.Home)
@@ -65,7 +76,7 @@ namespace Ludo.GUI.Controls
 
                 else if (IsPiecePlaced(fieldToMove))
                 {
-                    if (fieldToMove.GetPieces[0].Color != piece.Color)
+                    if (fieldToMove.GetPieces[0].Color != piece.Color && fieldToMove.Type != FieldType.GlobeField)
                         KillPiece(ref piece);
                     else
                     {
@@ -79,7 +90,7 @@ namespace Ludo.GUI.Controls
                     ResetField(field);
                 }
             }
-            else Debug.WriteLine("Player tried to move a token from an empty field");
+            else Trace.WriteLine("\nPlayer tried to move a token from an empty field");
         }
 
         /// <summary>
@@ -89,9 +100,11 @@ namespace Ludo.GUI.Controls
         /// <param name="image">The image to set as background</param>
         public void UpdateField(Field field, ImageBrush image)
         {
-            field.Background = image;
+            LogControl.Log("");
+            LogControl.Log("POST: " + field);
+            if (field.GetPieces.Count <= 1)
+                field.Background = image;
         }
-
 
 
         /// <summary>
@@ -100,10 +113,13 @@ namespace Ludo.GUI.Controls
         /// <param name="piece">Piece to place</param>
         /// <param name="field">Field to place piece on</param>
         /// <param name="state">State of the piece</param>
+        /// <param name="dieValue">The value of the die</param>
         public void PlacePiece(Piece piece, Field field, PieceState state, int dieValue)
         {
-            //First configure the piece
-            piece.SetPosition(piece.GetPosition() + dieValue);
+            if (state != PieceState.Safe)
+                piece.SetPosition(piece.GetPosition() + dieValue);
+            else
+                piece.SetPosition(field.Id);
             piece.Counter += dieValue;
             piece.State = state;
 
@@ -119,29 +135,31 @@ namespace Ludo.GUI.Controls
         /// <param name="field">The field to reset</param>
         public void ResetField(Field field)
         {
-            field.SetDefaultImage(); // First resets the background image
-            for (int i = 0; i < field.GetPieces.Count; i++)
-            {
-                field.RemovePiece(field.GetPieces[i]); // Removes every piece from the field
-            }
+            LogControl.Log("");
+            LogControl.Log("PRE: " + field.ToString());
 
-            if (field is Fields.White)
+            field.RemovePiece(field.GetPieces.First()); // Removes every piece from the field
+            if (field.GetPieces.Count < 1)
+                field.SetDefaultImage(); // First resets the background image
+            //for (int i = 0; i < field.GetPieces.Count; i++)
+            //{
+                
+            //}
+
+            if (field is White fie1)
             {
-                Fields.White fie = field as Fields.White;
-                fie.SetColor = GameColor.White;
+                fie1.SetColor = GameColor.White;
             }
-            else if (field is Fields.Star)
+            else if (field is Star fie2)
             {
-                Fields.Star fie = field as Fields.Star;
-                fie.SetColor = GameColor.White;
+                fie2.SetColor = GameColor.White;
             }
-            else if (field is Fields.Globe)
+            else if (field is Globe fie3)
             {
-                Fields.Globe fie = field as Fields.Globe;
-                fie.Color = GameColor.White;
+                fie3.Color = GameColor.White;
             }
         }
-
+        
         /// <summary>
         /// Checks if there is any pieces at the specified field
         /// </summary>
@@ -149,7 +167,7 @@ namespace Ludo.GUI.Controls
         /// <returns>True if any pieces otherwise false</returns>
         public bool IsPiecePlaced(Field field)
         {
-            return field.GetPieces.Count != 0 ? true : false;
+            return field.GetPieces.Count != 0;
         }
 
         /// <summary>
@@ -185,5 +203,7 @@ namespace Ludo.GUI.Controls
                     throw new Exception("Unknown Error.");
             }
         }
+
+        public event Finished OnMove;
     }
 }
