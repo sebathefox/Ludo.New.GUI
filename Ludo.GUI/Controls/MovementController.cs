@@ -19,6 +19,7 @@ namespace Ludo.GUI.Controls
             this.OnMove += eDelegate;
         }
 
+        // TODO Optimize movement methods
         /// <summary>
         /// Moves the piece and cleans it's path
         /// </summary>
@@ -48,12 +49,12 @@ namespace Ludo.GUI.Controls
 
                 // TODO change from exception
                 if (!piece.CanMove && player.Color != piece.Color)
+                {
+                    LogControl.Log("The selected piece can't move", LogControl.LogLevel.Error);
                     throw new Exception("ERROR: Piece cannot move.");
-
+                }
                 else if (piece.Counter + dieValue > 55)
                 {
-                    
-                    //field.Color = GameColor.White;
                     UpdateField(field, field.GetDefaultImage());
                     ResetField(field);
                     piece.State = PieceState.Finished;
@@ -62,7 +63,8 @@ namespace Ludo.GUI.Controls
 
                 else if (piece.Counter + dieValue >= 50)
                 {
-                    int tmpMath = piece.GetPosition() + dieValue - piece.GetSafePosition;
+                    int tmpMath = piece.GetSafePosition + dieValue - 53;
+                    //int tmpz = 
                     fieldToMove = fields[(piece.GetSafePosition + tmpMath)];
                     PlacePiece(piece, fieldToMove, PieceState.Safe, dieValue);
                     ResetField(field);
@@ -72,9 +74,8 @@ namespace Ludo.GUI.Controls
                 {
                     fieldToMove = fields[(piece.StartPosition)];
 
-                    piece.State = PieceState.InPlay;
-                    fieldToMove.AddPiece(piece);
                     UpdateField(fieldToMove, GetImage(piece.Color, fieldToMove));
+                    PlacePiece(piece, fieldToMove, PieceState.InPlay, 0);
                     ResetField(field);
                 }
 
@@ -105,11 +106,12 @@ namespace Ludo.GUI.Controls
                 }
                 else
                 {
-                    PlacePiece(piece, fieldToMove, PieceState.InPlay, dieValue);
                     ResetField(field);
+                    PlacePiece(piece, fieldToMove, PieceState.InPlay, dieValue);
                 }
             }
-            else Trace.WriteLine("\nPlayer tried to move a token from an empty field");
+            else LogControl.Log("Player tried to move a token from an empty field: " + field, LogControl.LogLevel.Warning);
+            
 
             foreach (Piece piece in player.GetPieces())
             {
@@ -124,8 +126,7 @@ namespace Ludo.GUI.Controls
         /// <param name="image">The image to set as background</param>
         public void UpdateField(Field field, ImageBrush image)
         {
-            LogControl.Log("");
-            LogControl.Log("POST: " + field);
+            LogControl.Log(field.ToString(), LogControl.LogLevel.Debug);
             if (field.GetPieces.Count <= 1)
                 field.Background = image;
         }
@@ -161,8 +162,7 @@ namespace Ludo.GUI.Controls
         /// <param name="field">The field to reset</param>
         public void ResetField(Field field)
         {
-            LogControl.Log("");
-            LogControl.Log("PRE: " + field);
+            LogControl.Log(field.ToString(), LogControl.LogLevel.Debug);
 
             field.RemovePiece(field.GetPieces.First()); // Removes every piece from the field
             if (field.GetPieces.Count < 1)
@@ -204,10 +204,6 @@ namespace Ludo.GUI.Controls
                     return FieldType.StarField;
                 case FieldType.StartField:
                     return FieldType.StartField;
-                //case FieldType.HomeField:
-                //    return FieldType.HomeField;
-                //case FieldType.SafeField:
-                //    return FieldType.SafeField;
                 default:
                     return FieldType.BaseField;
             }

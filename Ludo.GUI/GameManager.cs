@@ -199,13 +199,11 @@ namespace Ludo.GUI
                         choice++;
                         break;
                 }
-
-                LogControl.Log("");
-                LogControl.Log("DEBUG: Piece: " + pcs);
-                LogControl.Log("");
+                
+                LogControl.Log("Piece: " + pcs, LogControl.LogLevel.Debug);
             }
             if (choice == 0)
-                LogControl.Log("Player " + turn.Name + " : " + turn.Color + " Could not move any pieces this turn");
+                LogControl.Log("Player: " + turn.Name + " : " + turn.Color + " Could not move any pieces this turn", LogControl.LogLevel.Debug);
         }
 
         /// <summary>
@@ -378,7 +376,7 @@ namespace Ludo.GUI
         /// <param name="piece">The piece to validate</param>
         private void OnPieceFinished(object sender, Piece piece)
         {
-            LogControl.Log("Someone got a piece to the finishline");
+            LogControl.Log("Someone got a piece to the finishline", LogControl.LogLevel.Information);
             int finished = 0;
             players.ForEach((player) =>
             {

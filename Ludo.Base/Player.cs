@@ -54,11 +54,6 @@ namespace Ludo.Base
         public Piece[] GetPieces() => this.pieces;
 
         /// <summary>
-        /// Gets a single array from the token array
-        /// </summary>
-        public Piece GetPiece(int pieceId) => this.pieces[pieceId];
-
-        /// <summary>
         /// Gets a list of the private fields of...
         /// </summary>
         public List<Field> GetPlayerFields { get => this.playerFields; }

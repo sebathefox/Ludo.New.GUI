@@ -22,7 +22,7 @@ namespace Ludo.GUI.Fields
 
         public void Protec(ref Piece piece, ref Field field, ref MovementController control)
         {
-            Debug.WriteLine("Star was activated: " + this);
+            LogControl.Log("Star was activated: " + this, LogControl.LogLevel.Information);
             List<Field> fields = control.Fields;
 
             Piece piece1 = piece;

@@ -104,7 +104,7 @@ namespace Ludo.Base
 
         public override string ToString()
         {
-            return "PieceId: " + Id + ", Color: " + Color + ", Position: " + position;
+            return "PieceId: " + Id + ", Color: " + Color + ", Position: " + position + ", CanMove: " + CanMove;
         }
     }
 }

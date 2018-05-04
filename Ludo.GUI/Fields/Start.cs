@@ -22,7 +22,7 @@ namespace Ludo.GUI.Fields
 
         public void Protec(ref Piece piece, ref Field field, ref Start fieldToMove, ref MovementController control, int dieValue)
         {
-            Debug.WriteLine("Start was activated: " + this);
+            LogControl.Log("Start was activated: " + this, LogControl.LogLevel.Information);
 
             if (piece.Color != fieldToMove.Color && fieldToMove.GetPieces.Count > 1)
             {
@@ -37,7 +37,5 @@ namespace Ludo.GUI.Fields
         }
 
         public override GameColor Color => this.color;
-
-        //TODO Make this class the startfield for the pieces
     }
 }

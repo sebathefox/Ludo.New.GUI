@@ -30,6 +30,7 @@ namespace Ludo.GUI
         {
             InitializeComponent();
             LogControl.Init();
+            LogControl.Log("Log has been created", LogControl.LogLevel.Information);
         }
 
         ~MainWindow()
@@ -65,13 +66,12 @@ namespace Ludo.GUI
                     manager.AddPlayer(playerNames[i], i + 1);
                 }
             }
-            
+
+            LogControl.Log("Players:", LogControl.LogLevel.Information);
             // Debug output
             foreach (string pn in playerNames)
             {
-                LogControl.Log("Players:");
-                LogControl.Log("Name: " + pn);
-                
+                LogControl.Log("Name: " + pn, LogControl.LogLevel.Information);
             }
             this.RollDie.Background = (ImageBrush)FindResource("WhiteField");
             this.RollDie.Visibility = Visibility.Visible;

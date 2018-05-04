@@ -21,7 +21,7 @@ namespace Ludo.GUI.Fields
 
         public void Protec(ref Piece piece, ref Field field, ref Globe fieldToMove, ref MovementController control, int dieValue)
         {
-            Debug.WriteLine("globe was activated: " + this);
+            LogControl.Log("globe was activated: " + this, LogControl.LogLevel.Information);
 
             if (piece.Color != fieldToMove.Color && fieldToMove.Color != GameColor.White)
             {
