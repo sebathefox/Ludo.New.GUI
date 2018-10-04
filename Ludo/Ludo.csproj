@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6A453299-4FA2-4EFA-B995-B080D3B49C1F}</ProjectGuid>
+    <ProjectGuid>{9CF92091-949D-4230-8E99-16309C58F2E4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Ludo.GUI</RootNamespace>
-    <AssemblyName>Ludo.GUI</AssemblyName>
+    <RootNamespace>Ludo</RootNamespace>
+    <AssemblyName>Ludo</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,23 +63,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BoardHandler.cs" />
-    <Compile Include="Controls\Draw.cs" />
-    <Compile Include="Controls\LogControl.cs" />
-    <Compile Include="Controls\MovementController.cs" />
-    <Compile Include="Fields\Globe.cs" />
-    <Compile Include="Fields\Home.cs" />
-    <Compile Include="Fields\Safe.cs" />
-    <Compile Include="Fields\Star.cs" />
-    <Compile Include="Fields\Start.cs" />
-    <Compile Include="Fields\White.cs" />
-    <Compile Include="GameManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="pieces\SuperPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,39 +96,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="layout\" />
-    <Folder Include="resource\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="graphics\bluePiece.png" />
-    <Resource Include="graphics\diceFive.png" />
-    <Resource Include="graphics\diceFour.png" />
-    <Resource Include="graphics\diceOne.png" />
-    <Resource Include="graphics\diceSix.png" />
-    <Resource Include="graphics\diceThree.png" />
-    <Resource Include="graphics\diceTwo.png" />
-    <Resource Include="graphics\greenPiece.png" />
-    <Resource Include="graphics\redPiece.png" />
-    <Resource Include="graphics\yellowPiece.png" />
+    <Folder Include="fields\" />
+    <Folder Include="graphics\dice\" />
+    <Folder Include="graphics\fields\" />
+    <Folder Include="graphics\players\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ludo.Base\Ludo.Base.csproj">
       <Project>{87574F4E-235F-4B11-B404-A0D88A12F648}</Project>
       <Name>Ludo.Base</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="graphics\fields\blueField.png" />
-    <Resource Include="graphics\fields\blueGlobe.png" />
-    <Resource Include="graphics\fields\globeField.png" />
-    <Resource Include="graphics\fields\greenField.png" />
-    <Resource Include="graphics\fields\greenGlobe.png" />
-    <Resource Include="graphics\fields\redField.png" />
-    <Resource Include="graphics\fields\redGlobe.png" />
-    <Resource Include="graphics\fields\starField.png" />
-    <Resource Include="graphics\fields\whiteField.png" />
-    <Resource Include="graphics\fields\yellowField.png" />
-    <Resource Include="graphics\fields\yellowGlobe.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

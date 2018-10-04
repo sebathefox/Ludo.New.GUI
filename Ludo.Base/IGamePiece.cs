@@ -36,6 +36,7 @@ namespace Ludo.Base
         /// <returns>Returns the position as an int</returns>
         int GetPosition();
 
+        //TODO: add to player instead (cause: DRY-principles)
         /// <summary>
         /// Gets the startposition
         /// </summary>

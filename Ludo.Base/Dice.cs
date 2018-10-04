@@ -14,12 +14,18 @@ namespace Ludo.Base
             this.Value = new Random().Next(1, 7);
         }
 
-        // Throws the die to get a new value
+        /// <summary>
+        ///  Throws the die to get a new value
+        /// </summary>
+        /// <returns>The value</returns>
         public int Throw()
         {
             return this.Value = new Random().Next(1, 7);
         }
 
+        /// <summary>
+        /// Get the value of the dice
+        /// </summary>
         public int Value { get; private set; }
     }
 }

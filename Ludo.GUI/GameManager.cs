@@ -131,8 +131,8 @@ namespace Ludo.GUI
                 field.Click += this.FieldClick;
 
                 canvas.Children.Add(field);
-                Canvas.SetLeft(field, field.PosX);
-                Canvas.SetTop(field, field.PosY);
+                Canvas.SetLeft(field, field.Position.X);
+                Canvas.SetTop(field, field.Position.Y);
             });
 
             players.ForEach((Player player) =>
@@ -144,8 +144,8 @@ namespace Ludo.GUI
                     field.Click += this.FieldClick;
 
                     canvas.Children.Add(field);
-                    Canvas.SetLeft(field, field.PosX);
-                    Canvas.SetTop(field, field.PosY);
+                    Canvas.SetLeft(field, field.Position.X);
+                    Canvas.SetTop(field, field.Position.Y);
                 });
             });
         }
@@ -163,6 +163,7 @@ namespace Ludo.GUI
             }
             catch (IndexOutOfRangeException e)
             {
+                LogControl.Log(e.Data.ToString(), LogControl.LogLevel.Error);
                 throw new IndexOutOfRangeException(e.Data.ToString());
             } 
         }
@@ -364,7 +365,9 @@ namespace Ludo.GUI
         {
             // Converts the object using cast
             Field field = (Field)sender;
+            LogControl.Log(field.ToString(), LogControl.LogLevel.Debug);
             Player player = this.players[playerTurn];
+            LogControl.Log(player.ToString(), LogControl.LogLevel.Debug);
 
             movement.Move(ref field, ref this.fields, ref player, dice.Value);
         }

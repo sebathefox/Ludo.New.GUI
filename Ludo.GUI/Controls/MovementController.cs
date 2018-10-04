@@ -51,6 +51,7 @@ namespace Ludo.GUI.Controls
                 if (!piece.CanMove && player.Color != piece.Color)
                 {
                     LogControl.Log("The selected piece can't move", LogControl.LogLevel.Error);
+                    LogControl.Log(piece.CanMove.ToString() + ", COLOR: " + player.Color, LogControl.LogLevel.Error);
                     throw new Exception("ERROR: Piece cannot move.");
                 }
                 else if (piece.Counter + dieValue > 55)

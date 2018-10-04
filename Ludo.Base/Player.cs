@@ -59,5 +59,10 @@ namespace Ludo.Base
         public List<Field> GetPlayerFields { get => this.playerFields; }
 
         #endregion
+
+        public override string ToString()
+        {
+            return "ID: " + this.Id + " : PIECES: " + this.GetPieces().ToString();
+        }
     }
 }

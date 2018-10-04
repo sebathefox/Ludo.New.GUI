@@ -11,19 +11,31 @@ namespace Ludo.GUI.Controls
     {
         public enum LogLevel { Information, Debug, Warning, Error, Space}
 
+        /// <summary>
+        /// Creates a new logger
+        /// </summary>
         public static void Init()
         {
+            // Logs information to a log file
             Trace.Listeners.Add(new TextWriterTraceListener("Log.LOG"));
-            Trace.AutoFlush = true;
-            Trace.Indent();
+            Trace.AutoFlush = true; // Flushes the buffer and sends the data to the disk
+            Trace.Indent(); // Newline
         }
 
+        /// <summary>
+        /// Closes the logger
+        /// </summary>
         public static void Close()
         {
-            Trace.Unindent();
-            Trace.Flush();
+            Trace.Unindent(); //Removes the indentation
+            Trace.Flush(); // Writes the data
         }
 
+        /// <summary>
+        /// Logs a string
+        /// </summary>
+        /// <param name="log">The string to log</param>
+        /// <param name="level">The loglevel to use (blank for default)</param>
         public static void Log(string log, LogLevel level = LogLevel.Space)
         {
             switch (level)

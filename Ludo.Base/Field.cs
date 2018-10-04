@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -15,8 +16,9 @@ namespace Ludo.Base
     {
         #region Fields
 
-        protected List<IGamePiece> pieces = new List<IGamePiece>(1); // The pieces that are on the field
+        protected List<IGamePiece> pieces = new List<IGamePiece>(2); // The pieces that are on the field
         protected ImageBrush defaultImage; // The field's default image (Used for when resetting the field)
+        private Vector position; // The 2D position on the board
 
         #endregion
 
@@ -25,8 +27,16 @@ namespace Ludo.Base
             this.Id = id;
             this.Width = 32;
             this.Height = 32;
-            this.PosX = posX;
-            this.PosY = posY;
+            this.position.X = (double) posX;
+            this.position.Y = (double) posY;
+        }
+
+        protected Field(int id, Vector position)
+        {
+            this.Id = id;
+            this.Width = 32;
+            this.Height = 32;
+            this.position = position;
         }
         
         // Removes the piece at the specified index
@@ -38,7 +48,7 @@ namespace Ludo.Base
         // Adds a new piece to the list
         public virtual void AddPiece(IGamePiece piece)
         {
-            this.pieces.Add(piece);
+            this.GetPieces.Add(piece);
         }
 
         #region Getters/Setters
@@ -49,9 +59,11 @@ namespace Ludo.Base
 
         public virtual GameColor Color { get; set; }
 
-        public virtual int PosX { get; set; }
-
-        public virtual int PosY { get; set; }
+        public virtual Vector Position
+        {
+            get => position;
+            set => position = value;
+        }
 
         public virtual void SetDefaultImage()
         {

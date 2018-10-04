@@ -9,6 +9,7 @@ namespace Ludo.Base
 {
     public delegate void Finished(object sender, Piece piece);
 
+    //TODO: OPTIMIZE
     /// <summary>
     /// Controls the movement scheme that is used to move objects on the board
     /// </summary>
