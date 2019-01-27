@@ -24,7 +24,7 @@ namespace Ludo.GUI.Controls
                 case GameColor.Red:
                     return (ImageBrush)field.FindResource("RedPiece");
                 default:
-                    throw new Exception("Unknown Error.");
+                    throw new Exception("Could not find the image of the piece.");
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Ludo.Base
     public class Player
     {
         private readonly Piece[] pieces; //A array with the tokens the player uses in the game
-        private readonly List<Field> playerFields = new List<Field>(9);
+        private readonly List<Field> playerFields;
 
         /// <summary>
         /// Creates a new Player object that can be used in the game
@@ -57,6 +58,28 @@ namespace Ludo.Base
         /// Gets a list of the private fields of...
         /// </summary>
         public List<Field> GetPlayerFields { get => this.playerFields; }
+
+        /// <summary>
+        /// Indexer to get the player's pieces.
+        /// </summary>
+        /// <param name="index">The zero based index of the piece.</param>
+        /// <returns>The piece if found otherwise null</returns>
+        public Piece this[int index]
+        {
+            get
+            {
+                try
+                {
+                    return this.pieces[index];
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Index out of range exception while using the player indexer.");
+                    return null;
+                }
+                
+            }
+        }
 
         #endregion
 
